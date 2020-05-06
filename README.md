@@ -14,46 +14,46 @@
 4. src - main - WEB-INF에 lib폴더 생성 => ojdbc6_g.jar 추가
 
 
-<-------------------------web.xml-------------------------->
+<-------------------------web.xml--------------------------><br>
 5. servlet-mapping 밑에 utf-8 필터 등록
 
 
-<---------------------root-context.xml----------------->
+<---------------------root-context.xml-----------------><br>
 6. Namespaces - mybatis-spring, aop, context 체크!(task 나중에 필요할 수도 있다)
 
 7. mybatis 관련 빈 등록!
 
 8. 맨 밑에 base-package만 수정
 
-------------
+------------<br>
 9. 서버 한 번 실행해보자! 되나 안되나
 
-<------com.ja.freeboard.member.controller------->
+<------com.ja.freeboard.member.controller-------><br>
 10. MemberController
 
-<-------------views---------->
+<-------------views----------><br>
 11. login_page.jsp
 
 12. join_member_page.jsp
 
-<----------com.ja.freeboard.vo-------->
+<----------com.ja.freeboard.vo--------><br>
 13. MemberVo
 
-<----------com.ja.freeboard.mapper--------->
+<----------com.ja.freeboard.mapper---------><br>
 14. MemberSQLMapper
 
-<---------com.ja.freeboard.member.service------->
+<---------com.ja.freeboard.member.service-------><br>
 15.MemberServiceImpl
 
--------------
+-------------<br>
 *servlet-context : 컨트롤러
  root-context : 서비스, 매퍼
 
 **기본 생성자 안 만들면 400 오류 뜰 수 있음!
 
-<--------com.ja.freeboard.mapper---------->
+<--------com.ja.freeboard.mapper----------><br>
 16. HobbySQLMapper
 
-<--------com.ja.freeboard.vo------------->
+<--------com.ja.freeboard.vo-------------><br>
 17. HobbyVo
 
