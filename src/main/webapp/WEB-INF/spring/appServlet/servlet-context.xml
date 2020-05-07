@@ -24,6 +24,7 @@
 	
 	<!-- 적절히 수정 필요(패키지명 따라) -->
 	<context:component-scan base-package="com.ja.freeboard.member.controller" />
+	<context:component-scan base-package="com.ja.freeboard.board.controller" />
 	
 	
 	

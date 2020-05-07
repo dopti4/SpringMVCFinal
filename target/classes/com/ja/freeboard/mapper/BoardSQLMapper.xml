@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 복붙 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+	<!-- 특수문자 처리 방법 -->
+	<!-- 
+			<![CDATA{
+			]]>
+	 -->
+
+<mapper namespace="com.ja.freeboard.mapper.BoardSQLMapper"> <!-- 패키지명 + 클래스명 -->
+	
+	<!-- 글쓰기 -->
+	<insert id="insert">	<!-- id : 메소드명  -->
+	<![CDATA[
+		INSERT INTO FB_Board VALUES(
+			FB_Board_seq.NEXTVAL, 
+			#{member_no}, 
+			#{board_title}, 
+			#{board_content}, 
+			0, 
+			SYSDATE)
+	]]>		
+	</insert>
+	
+	<!-- 글보기 -->		<!-- #{} : 단일값이면 그냥 매개변수명 -->
+	<select id="selectByNo" resultType="com.ja.freeboard.vo.BoardVo">
+	<![CDATA[
+		SELECT * FROM FB_Board WHERE board_no = #{no}	
+	]]>
+	</select>
+	
+	<!-- 전체 글 리스트 -->
+	<select id="selectAll" resultType="com.ja.freeboard.vo.BoardVo">
+	<![CDATA[
+		SELECT * FROM FB_Board ORDER BY board_no DESC
+	]]>
+	</select>
+	
+	<!-- 글삭제 -->
+	<delete id="deleteByNo">
+	<![CDATA[
+		DELETE FROM FB_Board WHERE board_no = #{no}
+	]]>	
+	</delete>
+	
+	<!-- 글수정 -->
+	<update id="update">
+	<![CDATA[
+		UPDATE FB_Board 
+		SET 
+			board_title = #{board_title}, 
+			board_content = #{board_content}, 
+			board_writedate = SYSDATE 
+		WHERE 
+			board_no = #{board_no}
+	]]>
+	</update>
+	
+</mapper>

@@ -28,15 +28,21 @@ public class MemberServiceImpl {
 		
 		//hobbySQLMapper.insert(member_key, member_hobby[0]);
 		//배열이니까 반복문으로 넣어준다.
-		try {
-			for(int hobby : member_hobby) {
-				
-				hobbySQLMapper.insert(member_key, hobby);
-				
-			}
-		}catch(Exception e) {
-			e.printStackTrace();
+		if(member_hobby == null) {	//널포인터익셉션 예외처리
+			return;
 		}
+		
+		for(int hobby : member_hobby) {
+				
+			hobbySQLMapper.insert(member_key, hobby);
+
+		}
+			
+	}
+	
+	public MemberVo login(MemberVo memberVo) {
+		
+		return memberSQLMapper.selectByIdAndPw(memberVo);
 		
 	}
 	
