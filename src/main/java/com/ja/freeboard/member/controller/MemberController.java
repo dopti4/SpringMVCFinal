@@ -52,6 +52,13 @@ public class MemberController {
 			session.setAttribute("sessionUser", userData);
 			return "redirect:/board/main_page.do";
 		}
+	}
+	
+	@RequestMapping("/logout_process.do")
+	public String logoutProcess(HttpSession session) {
 		
+		session.invalidate();
+		
+		return "redirect:/board/main_page.do";
 	}
 }

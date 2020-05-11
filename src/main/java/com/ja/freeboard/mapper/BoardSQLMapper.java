@@ -20,4 +20,7 @@ public interface BoardSQLMapper {
 	
 	//글수정
 	public void update(BoardVo boardVo);
+	
+	//조회수
+	public void updateReadCount(int no);
 }
