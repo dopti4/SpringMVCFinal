@@ -14,8 +14,13 @@
 	글쓴이 : ${readContent.memberVo.member_nick }<br>
 	조회수 : ${readContent.boardVo.board_readcount }<br>
 	내용 : <br>
-	${readContent.boardVo.board_content }<br><br><br><br>
+	${readContent.boardVo.board_content }
 	
+	<c:forEach items="${readContent.uploadFileVoList }" var="uploadFile">
+		<img alt="" src="/upload/${uploadFile.file_link_path }">
+	</c:forEach>
+	
+	<br><br><br><br>
 	<a href="${pageContext.request.contextPath }/board/main_page.do">목록</a>
 	
 	<c:if test="${!empty sessionUser && sessionUser.member_no == readContent.memberVo.member_no }">

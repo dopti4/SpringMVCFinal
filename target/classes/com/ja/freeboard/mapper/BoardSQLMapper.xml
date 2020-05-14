@@ -12,14 +12,16 @@
 
 <mapper namespace="com.ja.freeboard.mapper.BoardSQLMapper"> <!-- 패키지명 + 클래스명 -->
 	
-	
+	<select id="createKey" resultType="int">
+		SELECT FB_Board_seq.NEXTVAL FROM DUAL
+	</select>
 	
 	
 	<!-- 글쓰기 -->
 	<insert id="insert">	<!-- id : 메소드명  -->
 	<![CDATA[
 		INSERT INTO FB_Board VALUES(
-			FB_Board_seq.NEXTVAL, 
+			#{board_no}, 
 			#{member_no}, 
 			#{board_title}, 
 			#{board_content}, 

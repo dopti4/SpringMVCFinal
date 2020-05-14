@@ -5,7 +5,10 @@ import org.springframework.stereotype.Service;
 
 import com.ja.freeboard.mapper.HobbySQLMapper;
 import com.ja.freeboard.mapper.MemberSQLMapper;
+import com.ja.freeboard.util.FBMessageDigest;
 import com.ja.freeboard.vo.MemberVo;
+
+import java.security.*;
 
 @Service
 public class MemberServiceImpl {
@@ -18,6 +21,13 @@ public class MemberServiceImpl {
 	
 	public void joinMember(MemberVo memberVo, int [] member_hobby) {
 		
+		//비밀번호 해싱
+		String hashCode = FBMessageDigest.digest(memberVo.getMember_pw());
+		memberVo.setMember_pw(hashCode);
+		
+		
+		
+		//DB 연동
 		//가장 큰 값 구해서 넣어주기.
 		int member_key = memberSQLMapper.createKey();
 		
@@ -41,6 +51,10 @@ public class MemberServiceImpl {
 	}
 	
 	public MemberVo login(MemberVo memberVo) {
+		
+		//비밀번호 해싱
+		String hashCode = FBMessageDigest.digest(memberVo.getMember_pw());
+		memberVo.setMember_pw(hashCode);
 		
 		return memberSQLMapper.selectByIdAndPw(memberVo);
 		

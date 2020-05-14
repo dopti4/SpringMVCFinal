@@ -26,7 +26,7 @@
 		
 		
 		if(!reg.test(idBox.value)){
-			alert("이메일 형식이 아닙니다.")
+			alert("이메일 형식이 아닙니다.");
 			
 			//유효성에 맞지 않으면 기입된 내용 삭제
 			idBox.value = "";

@@ -8,6 +8,9 @@ import com.ja.freeboard.vo.BoardVo;
 
 public interface BoardSQLMapper {
 	
+	//board_no 가져올 용도
+	public int createKey();
+	
 	//글쓰기
 	public void insert(BoardVo boardVo);
 	

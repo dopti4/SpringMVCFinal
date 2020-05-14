@@ -7,21 +7,35 @@ import org.springframework.stereotype.Service;
 
 import com.ja.freeboard.mapper.BoardSQLMapper;
 import com.ja.freeboard.mapper.MemberSQLMapper;
+import com.ja.freeboard.mapper.UploadFileSQLMapper;
 import com.ja.freeboard.vo.BoardVo;
 import com.ja.freeboard.vo.MemberVo;
+import com.ja.freeboard.vo.UploadFileVo;
 
 @Service
 public class BoardServiceImpl {
 	
 	@Autowired
 	private BoardSQLMapper boardSQLMapper;
-	
 	@Autowired
 	private MemberSQLMapper memberSQLMapper;
+	@Autowired
+	private UploadFileSQLMapper uploadFileSQLMapper;
 	
-	public void writeContent(BoardVo boardVo) {
+	public void writeContent(BoardVo boardVo, List<UploadFileVo> uploadFileVoList) {
+		
+		int boardKey = boardSQLMapper.createKey();
+		boardVo.setBoard_no(boardKey);
 		
 		boardSQLMapper.insert(boardVo);
+		
+		for(UploadFileVo uploadFileVo : uploadFileVoList) {
+			
+			uploadFileVo.setBoard_no(boardKey);
+			
+			uploadFileSQLMapper.insert(uploadFileVo);
+			
+		}
 		
 	}
 	
@@ -74,12 +88,17 @@ public class BoardServiceImpl {
 		
 		boardSQLMapper.updateReadCount(board_no);
 		
+		//담기
 		BoardVo boardVo = boardSQLMapper.selectByNo(board_no);
 		
 		MemberVo memberVo = memberSQLMapper.selectByNo(boardVo.getMember_no());
 		
+		List<UploadFileVo> uploadFileVoList = uploadFileSQLMapper.selectByBoardNo(board_no);
+		
+		
 		map.put("memberVo", memberVo);
 		map.put("boardVo", boardVo);
+		map.put("uploadFileVoList", uploadFileVoList);
 		
 		
 		return map;
