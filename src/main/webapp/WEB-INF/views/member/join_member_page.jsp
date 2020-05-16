@@ -14,6 +14,54 @@
 
 
 <script type="text/javascript">
+
+	function testAjax(){
+		
+		//AJAX 호출...코드 시작
+		var xmlhttp = new XMLHttpRequest();		//ajax 실행 객체
+		
+		//호출 후 값을 받았을때... 처리 로직....
+		xmlhttp.onreadystatechange = function(){	//호출될 때마다 실행될 함수
+			
+			if(xmlhttp.readyState == 4 && xmlhttp.status == 200){			//예외 처리 - 한 번만 호출되게끔 해줌(4번이 핵심).
+				//alert("안녕하세요");
+				//alert(xmlhttp.responseText);		//html 코드 호출
+				var box = document.getElementById("test_box");
+				//box.innerText = xmlhttp.responseText;
+				
+				//댓글 처리시 참고! ---- 지웠다가 새로 뜨게끔
+				for(var xx of box.childNodes){
+					box.removeChild(xx);
+				}
+				
+				var obj = JSON.parse(xmlhttp.responseText);	//json -> 자바스크립트로, 이거 무조건 써야함.
+				//alert("닉네임 : " + obj.member_nick);
+				var ul = document.createElement("ul");
+				
+				for(xxx of obj){
+					
+					var li = document.createElement("li");
+					li.innerText = xxx.member_nick;
+					ul.appendChild(li);
+					
+				}
+				
+				
+				box.appendChild(ul);
+						
+				
+				
+				
+			}
+			
+		};
+		
+		xmlhttp.open("get", "./testAjax.do" , true);	//get방식으로 url 호출하겠다. 
+		xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		
+		xmlhttp.send();		//자바스크립트로 url 호출
+		
+	}
 	
 	function frm_submit(){
 		var frm = document.getElementById("frm");
@@ -73,7 +121,7 @@
 						ID
 					</div>
 					<div class="col">
-						<input id="id" type="text" class="form-control" name="member_id">
+						<input id="id" type="text" class="form-control" name="member_id"> <input type="button" value="중복 확인" onclick="testAjax()">
 					</div>
 				</div>
 				<div class="row mt-2">
@@ -136,6 +184,10 @@
 		</form>
 	</div>
 	 
+	 
+	 
+	 <br>
+	 <div id="test_box"></div>
 	 <!--
 	<h1>회원 가입</h1>
 	

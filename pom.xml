@@ -24,6 +24,21 @@
 	
 	<dependencies>
 	
+	<!-- 메일 발송용 라이브러리 -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-context-support</artifactId>
+		    <version>${org.springframework-version}</version>
+		</dependency>
+
+	<!-- Java Mail API -->
+		<dependency>
+		    <groupId>javax.mail</groupId>
+		    <artifactId>mail</artifactId>
+		    <version>1.4.7</version>
+		</dependency>
+
+	
 	<!-- 파일 업로드 처리 라이브러리 -->
 		<dependency>
 			<groupId>commons-fileupload</groupId>

@@ -8,9 +8,10 @@
 </head>
 <body>
 	
-	로그인 실패! 아이디 혹은 비밀번호를 확인해주세요.<br>
-	이메일 인증을 진행해주세요.<br>
-	<a href="./login_page.do">로그인 페이지로</a>
+	인증 완료!<br><br><br>
+	로그인 후 이용해 주시기 바랍니다.<br>
+	<a href="./login_page.do">로그인 페이지</a>
+	
 	
 </body>
 </html>
