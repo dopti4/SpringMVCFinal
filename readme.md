@@ -3,7 +3,7 @@
 05/15
 
 -----이메일 인증
-1. FB_Member_Auth 테이블 생성
+1. FB_Member_Auth 테이블 생성<br>
     DROP TABLE FB_Member_Auth;
     
     CREATE TABLE FB_Member_Auth(
