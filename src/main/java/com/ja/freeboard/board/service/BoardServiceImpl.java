@@ -7,9 +7,11 @@ import org.springframework.stereotype.Service;
 
 import com.ja.freeboard.mapper.BoardSQLMapper;
 import com.ja.freeboard.mapper.MemberSQLMapper;
+import com.ja.freeboard.mapper.ReplySQLMapper;
 import com.ja.freeboard.mapper.UploadFileSQLMapper;
 import com.ja.freeboard.vo.BoardVo;
 import com.ja.freeboard.vo.MemberVo;
+import com.ja.freeboard.vo.ReplyVo;
 import com.ja.freeboard.vo.UploadFileVo;
 
 @Service
@@ -21,6 +23,8 @@ public class BoardServiceImpl {
 	private MemberSQLMapper memberSQLMapper;
 	@Autowired
 	private UploadFileSQLMapper uploadFileSQLMapper;
+	@Autowired
+	private ReplySQLMapper replySQLMapper;
 	
 	public void writeContent(BoardVo boardVo, List<UploadFileVo> uploadFileVoList) {
 		
@@ -114,6 +118,34 @@ public class BoardServiceImpl {
 	public void updateContent(BoardVo boardVo) {
 		
 		boardSQLMapper.update(boardVo);
+		
+	}
+	
+	//댓글 리스트
+	public List<Map<String, Object>> getReplyList(int board_no){
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		
+		List<ReplyVo> replyVoList = replySQLMapper.selectByBoardNo(board_no);
+		
+		//replyVoList에 닉네임 넣어야하니까 map형태로 memberVo, replyVo 담아준다.
+		for(ReplyVo replyVo : replyVoList) {
+			
+			MemberVo memberVo = memberSQLMapper.selectByNo(replyVo.getMember_no());
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			map.put("memberVo", memberVo);
+			map.put("replyVo", replyVo);
+			
+			list.add(map);
+		}
+		return list;
+	}
+	
+	public void writeReply(ReplyVo replyVo) {
+		
+		replySQLMapper.insert(replyVo);
 		
 	}
 	

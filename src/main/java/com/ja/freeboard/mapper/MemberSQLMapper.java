@@ -18,4 +18,7 @@ public interface MemberSQLMapper {
 	
 	@Select("SELECT * FROM FB_Member WHERE member_no = #{no}")	//#안에 매개변수 써주면 끝!
 	public MemberVo selectByNo(int no);
+	
+	@Select("SELECT * FROM FB_Member WHERE member_id = #{id}")
+	public MemberVo selectById(String id);
 }

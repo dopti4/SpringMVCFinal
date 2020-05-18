@@ -11,10 +11,59 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 
 
 <script type="text/javascript">
-
+	
+	var isConfirmId = false;
+	
+	function confirmId(){
+		
+		var inputValue = document.getElementById("id").value;	//입력된 값 가져오기.
+		
+		//복붙
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function(){
+			if(xmlhttp.readyState == 4 && xmlhttp.status == 200){	//성공한 경우
+				
+				if(xmlhttp.responseText == 'true'){					//넘어오는 문자열 값이 true일 때,
+					isConfirmId = true;
+					alert("사용 가능한 ID입니다.");
+				}else{
+					isConfirmId = false;
+					alert("중복된 ID가 존재합니다.");
+				}
+			}
+		};	//세미콜론 필수
+		
+		//복붙
+		xmlhttp.open("post", "./confirmId.do" , true);	//get방식은 url에 ? + "id=" + inputValue 이런식으로 
+		xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xmlhttp.send("id=" + inputValue);
+	}
+	
+	function confirmId_jQuery(){
+		
+		var inputValue = $("#id").val();	//val() 함수 호출해야함. 값을 넣으면 setter, 안 넣으면 getter
+		
+		$.ajax({	
+			type : 'post',
+			url : './confirmId.do',
+			data : {'id' : inputValue},
+			success : function(result){
+				if(result == 'true'){
+					isConfirmId = true;
+					alert("사용가능한 아이디입니다.");
+				}else{
+					isConfirmId = false;
+					alert("중복된 아이디가 존재합니다.");
+				}
+			}
+		});	
+	}
+	
+	<%--
 	function testAjax(){
 		
 		//AJAX 호출...코드 시작
@@ -48,10 +97,7 @@
 				
 				
 				box.appendChild(ul);
-						
-				
-				
-				
+					
 			}
 			
 		};
@@ -62,6 +108,7 @@
 		xmlhttp.send();		//자바스크립트로 url 호출
 		
 	}
+	--%>
 	
 	function frm_submit(){
 		var frm = document.getElementById("frm");
@@ -95,6 +142,10 @@
 			return;
 		}
 		
+		if(isConfirmId != true){
+			alert("아이디 중복 확인을 해주셔야 합니다!");
+			return;
+		}
 		
 		frm.submit();
 	}
@@ -121,7 +172,7 @@
 						ID
 					</div>
 					<div class="col">
-						<input id="id" type="text" class="form-control" name="member_id"> <input type="button" value="중복 확인" onclick="testAjax()">
+						<input id="id" type="text" class="form-control" name="member_id"> <input type="button" value="중복 확인" onclick="confirmId_jQuery()">
 					</div>
 				</div>
 				<div class="row mt-2">
@@ -205,7 +256,7 @@
 	</form>
 	 -->
 	 
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>	 
 	 

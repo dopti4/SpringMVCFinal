@@ -72,4 +72,14 @@ public class MemberServiceImpl {
 		
 	}
 	
+	public boolean confirmId(String id) {
+		
+		if(memberSQLMapper.selectById(id) == null) {
+			return true;	//사용 가능
+		}else {
+			return false;	//중복값 존재
+		}
+		
+	}
+	
 }

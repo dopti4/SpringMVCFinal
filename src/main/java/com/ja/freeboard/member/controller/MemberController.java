@@ -12,6 +12,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ja.freeboard.member.service.MemberServiceImpl;
 import com.ja.freeboard.vo.AuthVo;
@@ -100,6 +101,18 @@ public class MemberController {
 		System.out.println("testAjax 호출");
 		
 		return "member/testAjax";
+	}
+	
+	@RequestMapping("/confirmId.do")
+	@ResponseBody	//리턴되는 값으로 포워딩하지 않고 값 자체(문자열)를 넘겨줌. -> 리로드하지 않기 위해 사용
+	public String confirmId(String id) {
+		
+		System.out.println("넘어온 값 : " + id);
+		if(memberService.confirmId(id)) {
+			return "true";
+		}else {
+			return "false";
+		}
 	}
 }
 
